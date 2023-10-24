@@ -33,11 +33,13 @@ const renderSpinner = function (parentEl) {
 
 const showRecipe = async function () {
   try {
+    const id  = window.location.hash.slice(1); // get the id except the # symbol
+    console.log('id:', id);
+    if (!id) return; // if no id, return so that spinner does not run forever
+
     // 1) Loading recipe
     renderSpinner(recipeContainer);
-
-
-    const res = await fetch('https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bcebc');
+    const res = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
     const data = await res.json();
     if (!res.ok) throw new Error(`${data.message} (${res.status})`)
     // console.log(res, data);
@@ -153,3 +155,13 @@ const showRecipe = async function () {
 }
 
 showRecipe();
+//what if we have different events to listen to.
+// easier to have all the events in an array
+
+['hashchange', 'load'].forEach(ev=> window.addEventListener(ev, showRecipe));
+// when hash changes, run showRecipe function
+// window.addEventListener('hashchange', showRecipe);
+// when page first loads, run the showRecipe function
+// window.addEventListener('load', showRecipe);
+
+
