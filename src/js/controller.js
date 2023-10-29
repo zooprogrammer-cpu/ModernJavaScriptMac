@@ -1,3 +1,4 @@
+import * as model from './model.js';
 // import icons from '../img/icons.svg'; // Parcel 1
 import icons from 'url:../img/icons.svg'; // Parcel 2
 import 'core-js/stable'; // support old browsers . poly filling
@@ -36,27 +37,10 @@ const showRecipe = async function () {
     const id  = window.location.hash.slice(1); // get the id except the # symbol
     console.log('id:', id);
     if (!id) return; // if no id, return so that spinner does not run forever
-
-    // 1) Loading recipe
     renderSpinner(recipeContainer);
-    const res = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
-    const data = await res.json();
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`)
-    // console.log(res, data);
-    // let recipe = data.data.recipe;
-    // using destructuring
-    let {recipe} = data.data;
-    recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      sourceUrl: recipe.source_url,
-      image: recipe.image_url,
-      servings: recipe.servings,
-      cookingTime: recipe.cooking_time,
-      ingredients: recipe.ingredients
-    }
-    console.log(recipe);
+    // 1) Loading recipe
+    await model.loadRecipe(id);
+    const {recipe} = model.state;
 
     // 2) Rendering recipe
     const markup = `
