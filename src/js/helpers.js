@@ -8,7 +8,7 @@ export const getJSON = async function(url) {
   } catch(err) {
     // console.log(err);
     // to ensure the errors in helper.js , for example if the recipe id is incorrect:
-    // throw a new error so that it can be observed in mode.js catch
+    // re-throw a new error so that it can be observed in mode.js catch
     throw(err);
   }
 }
