@@ -1,3 +1,4 @@
+// contain functions that we reuse over and over again in the project
 export const getJSON = async function(url) {
   try {
     const res = await fetch(url);
@@ -11,3 +12,4 @@ export const getJSON = async function(url) {
     throw(err);
   }
 }
+
