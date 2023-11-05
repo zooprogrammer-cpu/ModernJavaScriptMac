@@ -14,11 +14,11 @@ export const getJSON = async function(url) {
     const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
     const data = await res.json();
     if (!res.ok) throw new Error(`${data.message} (${res.status})`)
-    return data;
+    return data
   } catch(err) {
     // console.log(err);
     // to ensure the errors in helper.js , for example if the recipe id is incorrect:
-    // re-throw a new error so that it can be observed in mode.js catch
+    // re-throw a new error so that it can be observed in model.js catch
     throw(err);
   }
 }

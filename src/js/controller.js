@@ -2,9 +2,6 @@ import * as model from './model.js';
 import 'core-js/stable'; // support old browsers . poly filling
 import 'regenerator-runtime/runtime';
 import recipeView from "./views/recipeView.js";
-// console.log(icons)
-
-// const recipeContainer = document.querySelector('.recipe');
 
 
 // api documentation -
@@ -27,15 +24,24 @@ const controlRecipes = async function () {
     recipeView.render(model.state.recipe);
 
   } catch (err) {
-    alert(err)
+    console.error(err);
   }
 }
+//Implementing PublisherSubscriber pattern.
+// Render recipe. Call the addHandlerRender from recipeView.js.
+// Pass controlRecipes since we want this method to execute as soon as the event happens.
+const init = function () {
+  recipeView.addHandlerRender(controlRecipes);
+}
+// init runs when the program first runs. and it calls the addHandlerRender.
+// We
+init();
 
-controlRecipes();
+// controlRecipes();
 //what if we have different events to listen to.
 // easier to have all the events in an array
 
-['hashchange', 'load'].forEach(ev=> window.addEventListener(ev, controlRecipes));
+// ['hashchange', 'load'].forEach(ev=> window.addEventListener(ev, controlRecipes));
 // when hash changes, run controlRecipes function
 // window.addEventListener('hashchange', controlRecipes);
 // when page first loads, run the controlRecipes function
