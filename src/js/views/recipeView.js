@@ -35,6 +35,13 @@ class RecipeView {
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
+  // addHandlerRender is the method used to render the recipe at the beginning.
+  // addHandlerRender is listening for events
+  // publisher needs access to subscriber which is the handler method
+  addHandlerRender (handler) {
+    ['hashchange', 'load'].forEach(ev=> window.addEventListener(ev, handler));
+  }
+
   #generateMarkup() {
     return `
         <figure class="recipe__fig">
