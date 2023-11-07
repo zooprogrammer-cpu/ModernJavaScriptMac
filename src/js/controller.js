@@ -27,15 +27,18 @@ const controlRecipes = async function () {
     recipeView.render(model.state.recipe);
 
   } catch (err) {
-    alert(err)
+    console.log(err);
   }
 }
 
-controlRecipes();
+const init = function () {
+  recipeView.addHandlerRender(controlRecipes)
+}
+
+init();
 //what if we have different events to listen to.
 // easier to have all the events in an array
 
-['hashchange', 'load'].forEach(ev=> window.addEventListener(ev, controlRecipes));
 // when hash changes, run controlRecipes function
 // window.addEventListener('hashchange', controlRecipes);
 // when page first loads, run the controlRecipes function
